@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.DrivetrainSubsystem;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -13,6 +17,39 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  //Buttons
+  public static final XboxController.Button A = XboxController.Button.kA
+      ,B = XboxController.Button.kB
+      ,X = XboxController.Button.kX
+      ,Y = XboxController.Button.kY
+      ,LB = XboxController.Button.kLeftBumper
+      ,RB = XboxController.Button.kRightBumper
+      ,LS = XboxController.Button.kLeftStick
+      ,RS = XboxController.Button.kRightStick
+      ,MENU = XboxController.Button.kStart
+      ,NAVIGATION = XboxController.Button.kBack;
+//Axis
+  public static final XboxController.Axis LS_Y = XboxController.Axis.kLeftY
+      ,LS_X = XboxController.Axis.kLeftX
+      ,RS_Y = XboxController.Axis.kRightY
+      ,RS_X = XboxController.Axis.kRightX
+      ,LT = XboxController.Axis.kLeftTrigger
+      ,RT = XboxController.Axis.kRightTrigger;
+
+  //Ports
+  public static final int XBOXCONTROLLERPORT = 0;
+    
+  //Can
+  public static final int LEFTBACKMOTORPORT = 1
+      ,LEFTFRONTKMOTORPORT = 3
+      ,RIGHTBACKMOTORPORT = 2
+      ,RIGHTFRONTMOTORPORT = 4;
+
+  // Subsystems
+  public static DrivetrainSubsystem driveTrain = new DrivetrainSubsystem();
+  public static ArmSubsystem armSubsystem = new ArmSubsystem();
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }

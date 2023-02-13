@@ -5,10 +5,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class MoveArmCommand extends CommandBase{
-    private final ArmSubsystem m_subsystem;
+
+    private final ArmSubsystem arm;
 
     public MoveArmCommand(ArmSubsystem subsystem) {
-        m_subsystem = subsystem;
+        arm = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }

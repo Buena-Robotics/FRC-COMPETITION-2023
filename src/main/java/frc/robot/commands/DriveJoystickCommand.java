@@ -1,14 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class DriveJoystickCommand extends CommandBase{
-    private final DrivetrainSubsystem m_subsystem;
+
+    private final DrivetrainSubsystem m_drive;
 
     public DriveJoystickCommand(DrivetrainSubsystem subsystem) {
-        m_subsystem = subsystem;
+        m_drive = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -17,7 +17,9 @@ public class DriveJoystickCommand extends CommandBase{
     public void initialize() {}
 
     @Override
-    public void execute() {}
+    public void execute() {
+        m_drive.arcade_drive();
+    }
 
     @Override
     public void end(boolean interrupted) {}

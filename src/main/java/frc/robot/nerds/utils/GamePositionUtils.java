@@ -2,9 +2,11 @@ package frc.robot.nerds.utils;
 
 import org.photonvision.targeting.PhotonPipelineResult;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import frc.robot.nerds.utils.GamePositionUtils.CommunityPosition;
+import edu.wpi.first.wpilibj.I2C;
 
 // Contains positions for camera cone and TODO: april tag spots
 public class GamePositionUtils {
@@ -15,6 +17,7 @@ public class GamePositionUtils {
     // The subscribers for the cone x and cone y values
     private DoubleSubscriber cxSub, cySub;
 
+    private AHRS gyroscope;
 
     private GamePositionUtils() {
         cxSub = ntInst.getDoubleTopic("cx").subscribe(0.0);
@@ -44,7 +47,7 @@ public class GamePositionUtils {
         cySub.close();
     }
 
-    public CommunityPosition getCurrentPos() {
+    public CommunityPosition getCommunityPos() {
         PhotonPipelineResult result = CameraUtils.getCamera().getLatestResult();
         
         if (result.hasTargets()) {
@@ -76,5 +79,37 @@ public class GamePositionUtils {
         public int getId() {
             return id;
         }
+    }
+
+    public AHRS getGryoscope() {
+        if (gyroscope == null) {
+            gyroscope = new AHRS(I2C.Port.kOnboard);
+        }
+
+        return gyroscope;
+    }
+
+    public double getRobotX() {
+        return gyroscope.getDisplacementX();
+    }
+
+    public double getRobotY() {
+        return gyroscope.getDisplacementY();
+    }
+
+    public double getRobotZ() {
+        return gyroscope.getDisplacementZ();
+    }
+
+    public Vec2 getRobotPos() {
+        return new Vec2(gyroscope.getDisplacementX(), gyroscope.getDisplacementZ());
+    }
+
+    public double getRobotYaw() {
+        return gyroscope.getYaw();
+    }
+
+    public double getRobotPitch() {
+        return gyroscope.getPitch();
     }
 }

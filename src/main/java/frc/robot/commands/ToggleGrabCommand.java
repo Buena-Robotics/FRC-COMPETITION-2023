@@ -5,16 +5,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class ToggleGrabCommand extends CommandBase{
-    private final ArmSubsystem m_subsystem;
+
+    private final ArmSubsystem arm;
 
     public ToggleGrabCommand(ArmSubsystem subsystem) {
-        m_subsystem = subsystem;
+        arm = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+        arm.togglePiston();
+    }
 
     @Override
     public void execute() {}
