@@ -1,12 +1,15 @@
 package frc.robot.nerds.utils;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.commands.MoveArmCommand;
 import frc.robot.commands.ToggleGrabCommand;
 import frc.robot.commands.TurnAngleCommand;
 
+@SuppressWarnings("deprecation")
 public class ControllerUtils {
     
     public static final XboxController controller = new XboxController(Constants.XBOXCONTROLLERPORT);
@@ -27,9 +30,22 @@ public class ControllerUtils {
     public static final JoystickButton lS_X = new JoystickButton(controller, Constants.LS_X.value);
     public static final JoystickButton lS_Y = new JoystickButton(controller, Constants.LS_Y.value);
 
+    public static final Trigger dpadUpButton = new Trigger(() -> getDpadDirection().equals(DPadDirection.UP));
+    public static final Trigger dpadDownButton = new Trigger(() -> getDpadDirection().equals(DPadDirection.DOWN));
+    public static final Trigger dpadLeftButton = new Trigger(() -> getDpadDirection().equals(DPadDirection.LEFT));
+    public static final Trigger dpadRightButton = new Trigger(() -> getDpadDirection().equals(DPadDirection.RIGHT));
+
     // Dpad directions are stored in degrees
     public static int getDpad() {
         return controller.getPOV();
+    }
+
+    public static DPadDirection getDpadDirection() {
+        for (DPadDirection dir : DPadDirection.values()) {
+            if (dir.get() == getDpad()) return dir;
+        }
+
+        return DPadDirection.NONE;
     }
 
     // Check if the current dpad pov equals the given direction's pov
