@@ -5,34 +5,48 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.nerds.utils.ControllerUtils;
 
 public class ArmSubsystem extends SubsystemBase {
     
     private DoubleSolenoid solenoidValves = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0, 1);
     private Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
 
-    private final CANSparkMax intakeMotor = new CANSparkMax(5, MotorType.kBrushless);
-    private final RelativeEncoder intakeEncoder = intakeMotor.getEncoder();
+    private final CANSparkMax armMotor = new CANSparkMax(5, MotorType.kBrushless);
+    public final RelativeEncoder armEncoder = armMotor.getEncoder();
+
+    private boolean armSensorZeroed = false;
+
+    private DigitalInput magnetSensor = new DigitalInput(0);
 
     public ArmSubsystem() {
         compressor.enableDigital();
     }
 
-    public void moveToPosition(int goToPosition){//{ -70 < x < 0}
-        final double endPosition = -70;
-        final double kP = 0.6;
-        
-        while(Math.round(intakeEncoder.getPosition()) != goToPosition){
-            
-            double normalizedDistance = kP * ((intakeEncoder.getPosition() + Math.abs(goToPosition))/endPosition); //x
+    public void rotateArm(boolean isRotatingInwards){
+        if(!armSensorZeroed && !magnetSensor.get()){armEncoder.setPosition(0); armSensorZeroed = true;}
 
-            // double outputSpeed = Math.log(-normalizedDistance+1)/log1000Expr;
+        if(isRotatingInwards && magnetSensor.get() == true){
+            armMotor.set(ControllerUtils.controller.getRightTriggerAxis());
+        } else{
+            armMotor.set(-ControllerUtils.controller.getLeftTriggerAxis());
+        }
+    }
+
+    public void rotateArmToPosition(int destination){//{ -70 < destination < 0}
+        if(armSensorZeroed){
+            final double endPosition = -70;
+            final double kP = 0.6;
+            
+            double normalizedDistance = kP * ((armEncoder.getPosition() + Math.abs(destination))/endPosition); //x
+
             double outputSpeed = normalizedDistance < 0.20 && normalizedDistance > 0 ? 0.20 : normalizedDistance;
             double newOutputSpeed = (outputSpeed > -0.20 && outputSpeed < 0) ? -0.20 : outputSpeed;
-            intakeMotor.set(newOutputSpeed);
+            armMotor.set(newOutputSpeed);
         }
     }
 

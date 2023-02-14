@@ -6,11 +6,12 @@ import frc.robot.subsystems.ArmSubsystem;
 public class MoveArmToPosition extends CommandBase {
     
     private final ArmSubsystem armSubsystem;
-    private int m_position;
+    private int m_dPOV;
+    private int destination;
 
-    public MoveArmToPosition(ArmSubsystem subsystem, int position) {
+    public MoveArmToPosition(ArmSubsystem subsystem, int pov) {
         armSubsystem = subsystem;
-        m_position = position;
+        m_dPOV = pov;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -18,31 +19,30 @@ public class MoveArmToPosition extends CommandBase {
     @Override
     public void initialize() {}
 
-
-
     @Override
     public void execute() {
-        switch(m_position){
+        switch(m_dPOV){
             case(270):
-                System.out.println("Move to very back / starting pos");
-                armSubsystem.moveToPosition(0);
+                destination = 0;
+                armSubsystem.rotateArmToPosition(destination);
                 break;
                 //Move to very back / starting pos
             case(180):
-                System.out.println("Move to shelf height");
-                armSubsystem.moveToPosition(-23);
+                destination = -23;
+                armSubsystem.rotateArmToPosition(destination);
                 break;
                 //Move to shelf height
             case(90):
-                System.out.println("Move to low score");
-                armSubsystem.moveToPosition(-35);
+                destination = -35;
+                armSubsystem.rotateArmToPosition(destination);
                 break;
                 //Move to lower score
             case(0):
-                System.out.println("Move to high score");
-                armSubsystem.moveToPosition(-70);
+                destination = -70;
+                armSubsystem.rotateArmToPosition(destination);
                 break;
                 //Move to high score
+            default: break;
             
         }
     }
@@ -52,6 +52,6 @@ public class MoveArmToPosition extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return Math.round(armSubsystem.armEncoder.getPosition()) != destination;
     }
 }

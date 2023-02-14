@@ -1,15 +1,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class MoveArmCommand extends CommandBase{
 
-    private final ArmSubsystem arm;
+    private final ArmSubsystem armSubsystem;
+    private boolean m_isRotatingInwards;
 
-    public MoveArmCommand(ArmSubsystem subsystem) {
-        arm = subsystem;
+    public MoveArmCommand(ArmSubsystem subsystem, boolean isRotatingInwards) {
+        armSubsystem = subsystem;
+        m_isRotatingInwards = isRotatingInwards;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -18,10 +19,13 @@ public class MoveArmCommand extends CommandBase{
     public void initialize() {}
 
     @Override
-    public void execute() {}
+    public void execute() {
+        armSubsystem.rotateArm(m_isRotatingInwards);
+    }
 
     @Override
-    public void end(boolean interrupted) {}
+    public void end(boolean interrupted) {
+    }
 
     @Override
     public boolean isFinished() {

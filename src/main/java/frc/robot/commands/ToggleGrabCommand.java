@@ -15,12 +15,12 @@ public class ToggleGrabCommand extends CommandBase{
     }
 
     @Override
-    public void initialize() {
-        arm.togglePiston();
-    }
+    public void initialize() {}
 
     @Override
-    public void execute() {}
+    public void execute() {
+        arm.togglePiston();
+    }
 
     @Override
     public void end(boolean interrupted) {}

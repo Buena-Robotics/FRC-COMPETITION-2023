@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.nerds.utils.GamePositionUtils;
 import frc.robot.nerds.utils.Vec2;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -33,7 +32,7 @@ public class DriveDistanceCommand extends CommandBase{
 
     @Override
     public void execute() {
-        drivetrain.drive(speed, 0.0);
+        drivetrain.driveByDistance(speed);
     }
 
     @Override

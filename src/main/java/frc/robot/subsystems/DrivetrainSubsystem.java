@@ -10,6 +10,11 @@ import frc.robot.Constants;
 import frc.robot.commands.DriveJoystickCommand;
 import frc.robot.nerds.utils.ControllerUtils;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.I2C;
+
 public class DrivetrainSubsystem extends SubsystemBase {
     
     public final CANSparkMax leftBackMotor = new CANSparkMax(Constants.LEFTBACKMOTORPORT, MotorType.kBrushless); //MotorController Type
@@ -20,6 +25,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public final MotorControllerGroup leftMotors = new MotorControllerGroup(leftBackMotor,leftFrontMotor);
     public final MotorControllerGroup rightMotors = new MotorControllerGroup(rightBackMotor,rightFrontMotor);
     public final DifferentialDrive m_drive = new DifferentialDrive(leftMotors, rightMotors);
+
+    public AHRS gyroscope = new AHRS(I2C.Port.kOnboard);
 
     public double rampRate = 0.5;
     
@@ -37,19 +44,20 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     public void arcade_drive(){ 
         leftStickTurn = true; //SmartDashboard.getBoolean("Left stick turn", true);
-        rampRate = 0.5; //SmartDashboard.getNumber("Ramp rate", 0.5);
-        leftBackMotor.setClosedLoopRampRate(rampRate);
-        leftBackMotor.setOpenLoopRampRate(rampRate);
-        leftFrontMotor.setClosedLoopRampRate(rampRate);
-        leftFrontMotor.setOpenLoopRampRate(rampRate);
-        rightBackMotor.setClosedLoopRampRate(rampRate);
-        rightBackMotor.setOpenLoopRampRate(rampRate);
-        rightFrontMotor.setClosedLoopRampRate(rampRate);
-        rightFrontMotor.setOpenLoopRampRate(rampRate);
+        // rampRate = 0.5; //SmartDashboard.getNumber("Ramp rate", 0.5);
+        // leftBackMotor.setClosedLoopRampRate(rampRate);
+        // leftBackMotor.setOpenLoopRampRate(rampRate);
+        // leftFrontMotor.setClosedLoopRampRate(rampRate);
+        // leftFrontMotor.setOpenLoopRampRate(rampRate);
+        // rightBackMotor.setClosedLoopRampRate(rampRate);
+        // rightBackMotor.setOpenLoopRampRate(rampRate);
+        // rightFrontMotor.setClosedLoopRampRate(rampRate);
+        // rightFrontMotor.setOpenLoopRampRate(rampRate);
         m_drive.arcadeDrive(leftStickTurn ? ControllerUtils.controller.getLeftX() : ControllerUtils.controller.getRightX(), ControllerUtils.controller.getLeftY(), true);
     }
 
-    public void drive(double moveSpeed, double turnSpeed) {
-        m_drive.arcadeDrive(moveSpeed, turnSpeed);
+    public void driveByDistance(double moveSpeed) {
+        // PIDController a = new PIDController(0.5, 0.5, 0.5);
+        m_drive.arcadeDrive(moveSpeed, 0);
     }
 }
