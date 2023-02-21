@@ -59,6 +59,18 @@ public class GamePositionUtils {
         return CommunityPosition.NONE;
     }
 
+/*
+5: (7.25, 6.76)
+6: (7.25, 1.07)
+7: (7.25, 2.75)
+8: (7.25, 4.42)
+
+1: (7.25,-1.07)
+2: (7.25,-2.75)
+3: (7.25,-4.42)
+4: (7.96,-6.75)
+ */
+
     public enum CommunityPosition {
         NONE(-1),
         RED_RIGHT(1),

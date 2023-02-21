@@ -105,14 +105,15 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    Constants.driveTrain.leftBackMotor.setClosedLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
-    Constants.driveTrain.leftBackMotor.setOpenLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
-    Constants.driveTrain.leftFrontMotor.setClosedLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
-    Constants.driveTrain.leftFrontMotor.setOpenLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
-    Constants.driveTrain.rightBackMotor.setClosedLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
-    Constants.driveTrain.rightBackMotor.setOpenLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
-    Constants.driveTrain.rightFrontMotor.setClosedLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
-    Constants.driveTrain.rightFrontMotor.setOpenLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
+    final double rampRate = SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate);
+    Constants.driveTrain.leftBackMotor.setClosedLoopRampRate(rampRate);
+    Constants.driveTrain.leftBackMotor.setOpenLoopRampRate(rampRate);
+    Constants.driveTrain.leftFrontMotor.setClosedLoopRampRate(rampRate);
+    Constants.driveTrain.leftFrontMotor.setOpenLoopRampRate(rampRate);
+    Constants.driveTrain.rightBackMotor.setClosedLoopRampRate(rampRate);
+    Constants.driveTrain.rightBackMotor.setOpenLoopRampRate(rampRate);
+    Constants.driveTrain.rightFrontMotor.setClosedLoopRampRate(rampRate);
+    Constants.driveTrain.rightFrontMotor.setOpenLoopRampRate(rampRate);
   }
 
   /** This function is called periodically during operator control. */

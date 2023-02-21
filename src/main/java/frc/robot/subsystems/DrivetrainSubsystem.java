@@ -45,14 +45,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public void arcade_drive(){ 
         leftStickTurn = true; //SmartDashboard.getBoolean("Left stick turn", true);
         // rampRate = 0.5; //SmartDashboard.getNumber("Ramp rate", 0.5);
-        // leftBackMotor.setClosedLoopRampRate(rampRate);
-        // leftBackMotor.setOpenLoopRampRate(rampRate);
-        // leftFrontMotor.setClosedLoopRampRate(rampRate);
-        // leftFrontMotor.setOpenLoopRampRate(rampRate);
-        // rightBackMotor.setClosedLoopRampRate(rampRate);
-        // rightBackMotor.setOpenLoopRampRate(rampRate);
-        // rightFrontMotor.setClosedLoopRampRate(rampRate);
-        // rightFrontMotor.setOpenLoopRampRate(rampRate);
         m_drive.arcadeDrive(leftStickTurn ? ControllerUtils.controller.getLeftX() : ControllerUtils.controller.getRightX(), ControllerUtils.controller.getLeftY(), true);
     }
 
