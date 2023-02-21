@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -30,6 +31,28 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     ControllerUtils.setBindings();
+    // SmartDashboard.putBoolean("Auto disabled", Autonomous.autonomousDisabled);
+		// SmartDashboard.putBoolean("Shoot disabled", Autonomous.shootDisabled);
+		// SmartDashboard.putBoolean("Drive disabled", Autonomous.driveDisabled);
+
+    // SmartDashboard.putNumber("Auto delay", Autonomous.waitTimeMS);
+		// SmartDashboard.putNumber("Auto speed", Autonomous.speed);
+		// SmartDashboard.putBoolean("Left stick turn", true);
+		// SmartDashboard.putNumber("Auto time", Autonomous.driveTimeMS);
+    SmartDashboard.putBoolean("Debug Mode", false);
+		SmartDashboard.putNumber("Ramp Rate", 0.5);
+
+    SmartDashboard.putNumber("Drive kP", 0.5);
+    SmartDashboard.putNumber("Drive kI", 0.5);
+    SmartDashboard.putNumber("Drive kD", 0.5);
+
+    SmartDashboard.putNumber("Arm kP", 0.5);
+    SmartDashboard.putNumber("Arm kI", 0.5);
+    SmartDashboard.putNumber("Arm kD", 0.5);
+
+    SmartDashboard.putNumber("Turn kP", 0.5);
+    SmartDashboard.putNumber("Turn kI", 0.5);
+    SmartDashboard.putNumber("Turn kD", 0.5);
   }
 
   /**
@@ -78,9 +101,18 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+    
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    Constants.driveTrain.leftBackMotor.setClosedLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
+    Constants.driveTrain.leftBackMotor.setOpenLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
+    Constants.driveTrain.leftFrontMotor.setClosedLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
+    Constants.driveTrain.leftFrontMotor.setOpenLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
+    Constants.driveTrain.rightBackMotor.setClosedLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
+    Constants.driveTrain.rightBackMotor.setOpenLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
+    Constants.driveTrain.rightFrontMotor.setClosedLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
+    Constants.driveTrain.rightFrontMotor.setOpenLoopRampRate(SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate));
   }
 
   /** This function is called periodically during operator control. */
