@@ -1,14 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class TurnAngleCommand extends CommandBase{
-    private final DrivetrainSubsystem m_subsystem;
+
+    private final DrivetrainSubsystem drivetrain;
 
     public TurnAngleCommand(DrivetrainSubsystem subsystem) {
-        m_subsystem = subsystem;
+        drivetrain = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
     }
@@ -17,7 +17,9 @@ public class TurnAngleCommand extends CommandBase{
     public void initialize() {}
 
     @Override
-    public void execute() {}
+    public void execute() {
+        
+    }
 
     @Override
     public void end(boolean interrupted) {}

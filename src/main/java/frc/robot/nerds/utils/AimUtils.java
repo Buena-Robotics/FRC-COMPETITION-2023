@@ -15,4 +15,15 @@ public class AimUtils {
             // Turn robot right
         }
     }
+
+    public static float[] getRotationFromPosition(double x, double z, double y) {
+	    double xDiff = x - GamePositionUtils.getInstance().getRobotX();
+	    double zDiff = z - GamePositionUtils.getInstance().getRobotZ();
+	    double yDiff = y - GamePositionUtils.getInstance().getRobotY();
+	
+	    double dist = Math.sqrt((float) (xDiff * xDiff + zDiff * zDiff));
+	    float yaw = (float) (Math.atan2(zDiff, xDiff) * 180.0D / Math.PI) - 90.0F;
+	    float pitch = (float) -(Math.atan2(yDiff, dist) * 180.0D / Math.PI);
+	    return new float[]{yaw, pitch};
+	}
 }

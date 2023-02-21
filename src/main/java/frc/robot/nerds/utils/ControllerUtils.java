@@ -9,7 +9,6 @@ import frc.robot.commands.MoveArmToPosition;
 import frc.robot.commands.ToggleGrabCommand;
 import frc.robot.commands.TurnAngleCommand;
 
-@SuppressWarnings("deprecation")
 public class ControllerUtils {
     
     public static final XboxController controller = new XboxController(Constants.XBOXCONTROLLERPORT);
