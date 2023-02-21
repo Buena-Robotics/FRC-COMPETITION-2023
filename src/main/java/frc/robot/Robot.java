@@ -83,7 +83,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = new SequentialCommandGroup(new DriveDistanceCommand(Constants.driveTrain, 0.5, 1));
+    m_autonomousCommand = GamePositionUtils.getInstance().getCommunityPos().getAutoCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

@@ -7,6 +7,8 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 // Contains positions for camera cone and TODO: april tag spots
 public class GamePositionUtils {
@@ -60,24 +62,30 @@ public class GamePositionUtils {
     }
 
     public enum CommunityPosition {
-        NONE(-1),
-        RED_RIGHT(1),
-        RED_CENTER(2),
-        RED_LEFT(3),
-        RED_LOADING(4),
-        BLUE_RIGHT(8),
-        BLUE_CENTER(7),
-        BLUE_LEFT(6),
-        BLUE_LOADING(5);
+        NONE(-1, null),
+        RED_RIGHT(1, new SequentialCommandGroup()),
+        RED_CENTER(2, new SequentialCommandGroup()),
+        RED_LEFT(3, new SequentialCommandGroup()),
+        RED_LOADING(4, new SequentialCommandGroup()),
+        BLUE_RIGHT(8, new SequentialCommandGroup()),
+        BLUE_CENTER(7, new SequentialCommandGroup()),
+        BLUE_LEFT(6, new SequentialCommandGroup()),
+        BLUE_LOADING(5, new SequentialCommandGroup());
 
         private int id;
+        private Command autoCommand;
 
-        CommunityPosition(int id) {
+        CommunityPosition(int id, Command autoCommand) {
             this.id = id;
+            this.autoCommand = autoCommand;
         }
 
         public int getId() {
             return id;
+        }
+
+        public Command getAutoCommand() {
+            return autoCommand;
         }
     }
 
