@@ -13,8 +13,8 @@ import frc.robot.nerds.utils.ControllerUtils;
 
 public class ArmSubsystem extends SubsystemBase {
     
-    private DoubleSolenoid solenoidValves = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,0, 1);
-    private Compressor compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+    private DoubleSolenoid solenoidValves = new DoubleSolenoid(PneumaticsModuleType.REVPH,0, 1);
+    private Compressor compressor = new Compressor(11, PneumaticsModuleType.REVPH);
 
     private final CANSparkMax armMotor = new CANSparkMax(5, MotorType.kBrushless);
     public final RelativeEncoder armEncoder = armMotor.getEncoder();
@@ -28,12 +28,13 @@ public class ArmSubsystem extends SubsystemBase {
     }
 
     public void rotateArm(boolean isRotatingInwards){
+        System.out.println("Rotate");
         if(!armSensorZeroed && !magnetSensor.get()){armEncoder.setPosition(0); armSensorZeroed = true;}
 
         if(isRotatingInwards && magnetSensor.get() == true){
-            armMotor.set(ControllerUtils.controller.getRightTriggerAxis());
+            armMotor.set(0.1);
         } else{
-            armMotor.set(-ControllerUtils.controller.getLeftTriggerAxis());
+            armMotor.set(-0.1);
         }
     }
 

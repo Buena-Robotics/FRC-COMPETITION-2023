@@ -14,11 +14,13 @@ public class ToggleGrabCommand extends CommandBase{
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+        arm.togglePiston();
+    }
 
     @Override
     public void execute() {
-        arm.togglePiston();
+        System.out.println("Pnuem");
     }
 
     @Override

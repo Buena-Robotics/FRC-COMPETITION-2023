@@ -17,7 +17,7 @@ public class ToggleCameraLight extends CommandBase{
 
     @Override
     public void execute() {
-        m_drive.arcade_drive();
+
     }
 
     @Override

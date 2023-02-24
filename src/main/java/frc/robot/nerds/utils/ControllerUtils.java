@@ -9,6 +9,7 @@ import frc.robot.commands.MoveArmToPosition;
 import frc.robot.commands.ToggleGrabCommand;
 import frc.robot.commands.TurnAngleCommand;
 
+@SuppressWarnings("deprecation")
 public class ControllerUtils {
     
     public static final XboxController controller = new XboxController(Constants.XBOXCONTROLLERPORT);
@@ -69,9 +70,9 @@ public class ControllerUtils {
 
     public static void setBindings() {
         xButton.onTrue(new TurnAngleCommand(Constants.driveTrain));
-        yButton.toggleOnTrue(new ToggleGrabCommand(Constants.armSubsystem));
-        rTTrigger.whileTrue(new MoveArmCommand(Constants.armSubsystem, true));
-        lTTrigger.whileTrue(new MoveArmCommand(Constants.armSubsystem, false));
+        yButton.whileTrue(new ToggleGrabCommand(Constants.armSubsystem));
+        rBButton.whenHeld(new MoveArmCommand(Constants.armSubsystem, true));
+        lBButton.whileTrue(new MoveArmCommand(Constants.armSubsystem, false));
         dpadUpButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
         dpadLeftButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
         dpadDownButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
