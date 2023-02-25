@@ -20,7 +20,7 @@ public class MoveArmCommand extends CommandBase{
 
     @Override
     public void execute() {
-        armSubsystem.rotateArm(m_isRotatingInwards);
+        armSubsystem.rotateArm();
     }
 
     @Override

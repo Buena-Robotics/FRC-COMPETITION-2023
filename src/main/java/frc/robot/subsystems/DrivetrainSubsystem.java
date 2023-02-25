@@ -44,7 +44,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public void arcade_drive(){ 
         leftStickTurn = true; //SmartDashboard.getBoolean("Left stick turn", true);
         // rampRate = 0.5; //SmartDashboard.getNumber("Ramp rate", 0.5);
-        m_drive.arcadeDrive(leftStickTurn ? ControllerUtils.controller.getLeftX() : ControllerUtils.controller.getRightX(), ControllerUtils.controller.getLeftY(), true);
+        m_drive.arcadeDrive(leftStickTurn ? ControllerUtils.controller.getLeftX() : ControllerUtils.controller.getRightX(), -ControllerUtils.controller.getLeftY(), true);
     }
 
     public void driveByDistance(double moveSpeed) {

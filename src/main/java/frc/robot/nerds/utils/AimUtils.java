@@ -16,10 +16,10 @@ public class AimUtils {
         }
     }
 
-    public static float[] getRotationFromPosition(double x, double z, double y) {
+    public static float[] getRotationFromPosition(double x, double y, double z) {
 	    double xDiff = x - GamePositionUtils.getInstance().getRobotX();
+        double yDiff = y - GamePositionUtils.getInstance().getRobotY();
 	    double zDiff = z - GamePositionUtils.getInstance().getRobotZ();
-	    double yDiff = y - GamePositionUtils.getInstance().getRobotY();
 	
 	    double dist = Math.sqrt((float) (xDiff * xDiff + zDiff * zDiff));
 	    float yaw = (float) (Math.atan2(zDiff, xDiff) * 180.0D / Math.PI) - 90.0F;

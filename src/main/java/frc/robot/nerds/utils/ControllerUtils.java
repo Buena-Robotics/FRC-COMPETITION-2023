@@ -1,16 +1,21 @@
 package frc.robot.nerds.utils;
 
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.commands.MoveArmCommand;
 import frc.robot.commands.MoveArmToPosition;
+import frc.robot.commands.TestCommand;
 import frc.robot.commands.ToggleGrabCommand;
 import frc.robot.commands.TurnAngleCommand;
 
 public class ControllerUtils {
     
+    public static final CommandXboxController commandController = new CommandXboxController(Constants.XBOXCONTROLLERPORT);
     public static final XboxController controller = new XboxController(Constants.XBOXCONTROLLERPORT);
     
     public static final JoystickButton aButton = new JoystickButton(controller, Constants.A.value);
@@ -68,13 +73,10 @@ public class ControllerUtils {
     }
 
     public static void setBindings() {
-        xButton.onTrue(new TurnAngleCommand(Constants.driveTrain));
-        yButton.toggleOnTrue(new ToggleGrabCommand(Constants.armSubsystem));
-        rTTrigger.whileTrue(new MoveArmCommand(Constants.armSubsystem, true));
-        lTTrigger.whileTrue(new MoveArmCommand(Constants.armSubsystem, false));
-        dpadUpButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
-        dpadLeftButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
-        dpadDownButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
-        dpadRightButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
+        commandController.y().onTrue(Commands.runOnce(Constants.armSubsystem::togglePiston, Constants.armSubsystem));
+        // dpadUpButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
+        // dpadLeftButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
+        // dpadDownButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
+        // dpadRightButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
     }
 }
