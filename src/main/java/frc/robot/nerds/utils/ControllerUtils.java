@@ -13,6 +13,7 @@ import frc.robot.commands.TestCommand;
 import frc.robot.commands.ToggleGrabCommand;
 import frc.robot.commands.TurnAngleCommand;
 
+@SuppressWarnings("deprecation")
 public class ControllerUtils {
     
     public static final CommandXboxController commandController = new CommandXboxController(Constants.XBOXCONTROLLERPORT);
