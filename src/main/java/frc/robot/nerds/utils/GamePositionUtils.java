@@ -8,7 +8,13 @@ import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
+import frc.robot.commands.DriveTimeCommand;
+import frc.robot.commands.MoveArmToPosition;
+import frc.robot.commands.OpenClawCommand;
+import frc.robot.commands.RotateTimeCommand;
 
 // Contains positions for camera cone and TODO: april tag spots
 public class GamePositionUtils {
@@ -89,7 +95,17 @@ public class GamePositionUtils {
 
         CommunityPosition(int id, Command autoCommand) {
             this.id = id;
-            this.autoCommand = autoCommand;
+            this.autoCommand = new SequentialCommandGroup(
+                new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
+                new OpenClawCommand(Constants.armSubsystem),
+                // new ParallelCommandGroup(
+                    new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
+                    new DriveTimeCommand(Constants.driveTrain, 2, false, 0.6)
+                    // new RotateTimeCommand(Constants.driveTrain, 2, false, 0.6),
+                
+                    // )
+                // new DriveTimeCommand(Constants.driveTrain, 2000, true, 0.6)
+            );
         }
 
         public int getId() {

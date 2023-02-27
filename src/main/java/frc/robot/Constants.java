@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
@@ -54,4 +56,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
   public static double D_RampRate = 0.5;
+
+  public static CommandBase toggleClawCommand = Commands.runOnce(Constants.armSubsystem::togglePiston, Constants.armSubsystem);
+  public static CommandBase openClawCommand = Commands.runOnce(Constants.armSubsystem::openClaw, Constants.armSubsystem);
 }

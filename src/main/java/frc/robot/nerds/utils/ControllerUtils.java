@@ -74,10 +74,12 @@ public class ControllerUtils {
     }
 
     public static void setBindings() {
-        commandController.y().onTrue(Commands.runOnce(Constants.armSubsystem::togglePiston, Constants.armSubsystem));
-        // dpadUpButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
-        // dpadLeftButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
-        // dpadDownButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
-        // dpadRightButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, getDpad()));
+        commandController.y().onTrue(Constants.toggleClawCommand);
+        commandController.a().onTrue(Commands.runOnce(Constants.armSubsystem::openClaw, Constants.armSubsystem));
+        
+        dpadUpButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, DPadDirection.UP));
+        dpadLeftButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, DPadDirection.LEFT));
+        dpadDownButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, DPadDirection.DOWN));
+        dpadRightButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, DPadDirection.RIGHT));
     }
 }

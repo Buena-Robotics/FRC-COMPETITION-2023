@@ -39,18 +39,23 @@ public class Robot extends TimedRobot {
 		// SmartDashboard.putNumber("Auto time", Autonomous.driveTimeMS);
     SmartDashboard.putBoolean("Debug Mode", false);
 		SmartDashboard.putNumber("Ramp Rate", 0.5);
+		SmartDashboard.putNumber("Shelf Height Destination", -19);
+		SmartDashboard.putNumber("Lower Score Destination", -35);
+		SmartDashboard.putNumber("DriveBackTime", 0);
+		SmartDashboard.putNumber("RotateTime", 0);
+		SmartDashboard.putNumber("DriveBackTime2", 0);
 
-    SmartDashboard.putNumber("Drive kP", 0.5);
-    SmartDashboard.putNumber("Drive kI", 0.5);
-    SmartDashboard.putNumber("Drive kD", 0.5);
+    // SmartDashboard.putNumber("Drive kP", 0.5);
+    // SmartDashboard.putNumber("Drive kI", 0.5);
+    // SmartDashboard.putNumber("Drive kD", 0.5);
 
-    SmartDashboard.putNumber("Arm kP", 0.5);
-    SmartDashboard.putNumber("Arm kI", 0.5);
-    SmartDashboard.putNumber("Arm kD", 0.5);
+    // SmartDashboard.putNumber("Arm kP", 0.5);
+    // SmartDashboard.putNumber("Arm kI", 0.5);
+    // SmartDashboard.putNumber("Arm kD", 0.5);
 
-    SmartDashboard.putNumber("Turn kP", 0.5);
-    SmartDashboard.putNumber("Turn kI", 0.5);
-    SmartDashboard.putNumber("Turn kD", 0.5);
+    // SmartDashboard.putNumber("Turn kP", 0.5);
+    // SmartDashboard.putNumber("Turn kI", 0.5);
+    // SmartDashboard.putNumber("Turn kD", 0.5);
   }
 
   /**
@@ -81,6 +86,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    if(!Constants.armSubsystem.armSensorZeroed && !Constants.armSubsystem.magnetSensor.get()){Constants.armSubsystem.armEncoder.setPosition(0); Constants.armSubsystem.armSensorZeroed = true;}
+
     m_autonomousCommand = GamePositionUtils.getInstance().getCommunityPos().getAutoCommand();
 
     // schedule the autonomous command (example)
@@ -100,9 +107,9 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
+    // if (m_autonomousCommand != null) {
+      // m_autonomousCommand.cancel();
+    // }
     final double rampRate = SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate);
     Constants.driveTrain.leftBackMotor.setClosedLoopRampRate(rampRate);
     Constants.driveTrain.leftBackMotor.setOpenLoopRampRate(rampRate);
