@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.commands.MoveArmCommand;
 import frc.robot.commands.MoveArmToPosition;
+import frc.robot.commands.SwapLight;
 import frc.robot.commands.TestCommand;
 import frc.robot.commands.ToggleGrabCommand;
 import frc.robot.commands.TurnAngleCommand;
@@ -76,6 +77,9 @@ public class ControllerUtils {
     public static void setBindings() {
         commandController.y().onTrue(Constants.toggleClawCommand);
         commandController.a().onTrue(Commands.runOnce(Constants.armSubsystem::openClaw, Constants.armSubsystem));
+
+        commandController.back().onTrue(new SwapLight(Constants.driveTrain, SwapLight.Color.Purple));
+        commandController.start().onTrue(new SwapLight(Constants.driveTrain, SwapLight.Color.Yellow));
         
         dpadUpButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, DPadDirection.UP));
         dpadLeftButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, DPadDirection.LEFT));

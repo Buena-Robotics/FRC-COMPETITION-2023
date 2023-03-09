@@ -4,10 +4,15 @@
 
 package frc.robot;
 
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
+
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.nerds.utils.CameraUtils;
 import frc.robot.nerds.utils.ControllerUtils;
 import frc.robot.nerds.utils.GamePositionUtils;
 
@@ -37,17 +42,14 @@ public class Robot extends TimedRobot {
 		// SmartDashboard.putNumber("Auto speed", Autonomous.speed);
 		// SmartDashboard.putBoolean("Left stick turn", true);
 		// SmartDashboard.putNumber("Auto time", Autonomous.driveTimeMS);
+
     SmartDashboard.putBoolean("Debug Mode", false);
 		SmartDashboard.putNumber("Ramp Rate", 0.5);
 		SmartDashboard.putNumber("Shelf Height Destination", -19);
 		SmartDashboard.putNumber("Lower Score Destination", -35);
-		SmartDashboard.putNumber("DriveBackTime", 0);
-		SmartDashboard.putNumber("RotateTime", 0);
-		SmartDashboard.putNumber("DriveBackTime2", 0);
-
-    // SmartDashboard.putNumber("Drive kP", 0.5);
-    // SmartDashboard.putNumber("Drive kI", 0.5);
-    // SmartDashboard.putNumber("Drive kD", 0.5);
+		SmartDashboard.putNumber("DriveDistance", -0.5);
+		// SmartDashboard.putNumber("RotateTime", 0);
+		// SmartDashboard.putNumber("DriveBackTime2", 0);
 
     // SmartDashboard.putNumber("Arm kP", 0.5);
     // SmartDashboard.putNumber("Arm kI", 0.5);
@@ -72,6 +74,20 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    // CameraUtils.getCamera().getLatestResult().getBestTarget().getBestCameraToTarget().getTranslation();
+    PhotonPipelineResult result = CameraUtils.getCamera().getLatestResult();
+
+    if (result.hasTargets()) {
+      double range =
+              PhotonUtils.calculateDistanceToTargetMeters(
+                  CAMERA_HEIGHT_METERS,
+                  TARGET_HEIGHT_METERS,
+                  CAMERA_PITCH_RADIANS,
+                  Units.degreesToRadians(result.getBestTarget().getPitch()));
+      System.out.println(range);
+      // System.out.println(result.getBestTarget().getYaw()); Angle , Right is positive
+      // System.out.println(result.getBestTarget().getBestCameraToTarget().);
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

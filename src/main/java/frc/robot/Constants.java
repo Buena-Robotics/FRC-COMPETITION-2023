@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -51,6 +52,9 @@ public final class Constants {
   // Subsystems
   public static DrivetrainSubsystem driveTrain = new DrivetrainSubsystem();
   public static ArmSubsystem armSubsystem = new ArmSubsystem();
+
+  public final static Relay light = new Relay(0);
+
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

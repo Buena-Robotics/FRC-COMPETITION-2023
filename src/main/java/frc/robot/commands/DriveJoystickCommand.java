@@ -1,6 +1,9 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.nerds.utils.GamePositionUtils;
+import frc.robot.nerds.utils.Math2;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class DriveJoystickCommand extends CommandBase{
@@ -14,11 +17,18 @@ public class DriveJoystickCommand extends CommandBase{
     }
 
     @Override
-    public void initialize() {}
+    public void initialize() {
+
+    }
 
     @Override
     public void execute() {
         m_drive.arcade_drive();
+		SmartDashboard.putNumber("leftEncoder", Math2.round(m_drive.leftEncoder.getPosition(),2));
+		SmartDashboard.putNumber("rightEncoder", Math2.round(m_drive.rightEncoder.getPosition(),2));
+		// SmartDashboard.putNumber("xPosition", Math2.round(m_drive.gyroscope.getDisplacementX(),2));
+		// SmartDashboard.putNumber("yPosition", Math2.round(m_drive.gyroscope.getDisplacementY(), 2));
+        // System.out.println(m_drive.gyroscope.getDisplacementX()+"::"+m_drive.gyroscope.getDisplacementY());
     }
 
     @Override
