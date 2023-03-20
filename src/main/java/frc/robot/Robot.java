@@ -4,10 +4,26 @@
 
 package frc.robot;
 
+import java.util.Arrays;
+
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator.ControlVectorList;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.nerds.utils.ControllerUtils;
 import frc.robot.nerds.utils.GamePositionUtils;
 
@@ -90,6 +106,17 @@ public class Robot extends TimedRobot {
 
     m_autonomousCommand = GamePositionUtils.getInstance().getCommunityPos().getAutoCommand();
 
+    //TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(2), Units.feetToMeters(2));
+    //config.setKinematics(Constants.driveTrain.kinematics);
+    // Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+      // new Pose2d(), Arrays.asList(), new Pose2d(1.0, 0.0, new Rotation2d()),
+      // config
+      // );
+
+      //PathPlannerTrajectory traj = PathPlanner.loadPath("Test", new PathConstraints(4, 3));
+
+      //m_autonomousCommand = Constants.driveTrain.followTrajectoryCommand(traj, true);
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -107,9 +134,9 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     
-    // if (m_autonomousCommand != null) {
-      // m_autonomousCommand.cancel();
-    // }
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
     final double rampRate = SmartDashboard.getNumber("Ramp Rate", Constants.D_RampRate);
     Constants.driveTrain.leftBackMotor.setClosedLoopRampRate(rampRate);
     Constants.driveTrain.leftBackMotor.setOpenLoopRampRate(rampRate);

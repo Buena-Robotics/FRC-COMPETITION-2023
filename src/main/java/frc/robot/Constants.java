@@ -57,6 +57,10 @@ public final class Constants {
   }
   public static double D_RampRate = 0.5;
 
+  public static final int WHEEL_DIAMETER_INCH = 6;
+  public static final double ENCODER_TO_METER = 70.47247 / 4;
+  public static final double GEAR_RATIO = 8.45;
+
   public static CommandBase toggleClawCommand = Commands.runOnce(Constants.armSubsystem::togglePiston, Constants.armSubsystem);
   public static CommandBase openClawCommand = Commands.runOnce(Constants.armSubsystem::openClaw, Constants.armSubsystem);
 }
