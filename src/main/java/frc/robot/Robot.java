@@ -4,9 +4,18 @@
 
 package frc.robot;
 
+import java.io.IOException;
+
+import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -43,10 +52,13 @@ public class Robot extends TimedRobot {
 		// SmartDashboard.putBoolean("Left stick turn", true);
 		// SmartDashboard.putNumber("Auto time", Autonomous.driveTimeMS);
 
-    SmartDashboard.putBoolean("Debug Mode", false);
 		SmartDashboard.putNumber("Ramp Rate", 0.5);
-		SmartDashboard.putNumber("Shelf Height Destination", -19);
+
 		SmartDashboard.putNumber("Lower Score Destination", -35);
+		SmartDashboard.putNumber("Shelf Height Destination", -19);
+		SmartDashboard.putNumber("High Score Height", -70);
+
+		SmartDashboard.putNumber("WaitDelay", 0.3);
 		SmartDashboard.putNumber("DriveDistance", -0.5);
 		// SmartDashboard.putNumber("RotateTime", 0);
 		// SmartDashboard.putNumber("DriveBackTime2", 0);
@@ -74,20 +86,31 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    // CameraUtils.getCamera().getLatestResult().getBestTarget().getBestCameraToTarget().getTranslation();
-    PhotonPipelineResult result = CameraUtils.getCamera().getLatestResult();
-
-    if (result.hasTargets()) {
-      double range =
-              PhotonUtils.calculateDistanceToTargetMeters(
-                  CAMERA_HEIGHT_METERS,
-                  TARGET_HEIGHT_METERS,
-                  CAMERA_PITCH_RADIANS,
-                  Units.degreesToRadians(result.getBestTarget().getPitch()));
-      System.out.println(range);
-      // System.out.println(result.getBestTarget().getYaw()); Angle , Right is positive
-      // System.out.println(result.getBestTarget().getBestCameraToTarget().);
-    }
+    
+    // if (CameraUtils.getCamera().getLatestResult().hasTargets()) {
+    //   PhotonTrackedTarget result = CameraUtils.getCamera().getLatestResult().getBestTarget();
+    //   Transform3d cameraToRobot = result.getBestCameraToTarget();
+    //   AprilTagFieldLayout layout;
+    //   try {
+    //     layout = AprilTagFields.k2023ChargedUp.loadAprilTagLayoutField();
+    //     Pose3d robotPose = PhotonUtils.estimateFieldToRobotAprilTag(result.getBestCameraToTarget(), layout.getTagPose(result.getFiducialId()).get(), cameraToRobot);
+    //     System.out.println(robotPose.toString());
+    //     System.out.println("it kinda worked");
+    //   } catch(IOException e) {
+    //     System.out.println("Something Went wrong here");
+    //       // TODO decide what you want to do if the layout fails to load
+    //   }
+      // AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.kDefaultField.m_resourceFile);
+    //   double range =
+    //           PhotonUtils.calculateDistanceToTargetMeters(
+    //             0.5842,
+    //               0.4445,
+    //               Math.toRadians(Constants.driveTrain.gyroscope.getYaw()+180),
+    //               Units.degreesToRadians(result.getBestTarget().getPitch()));
+    //   System.out.println(range);
+    //   // System.out.println(result.getBestTarget().getYaw()); Angle , Right is positive
+    //   // System.out.println(result.getBestTarget().getBestCameraToTarget().); 
+    // }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
