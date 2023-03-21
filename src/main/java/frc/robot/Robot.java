@@ -146,7 +146,7 @@ public class Robot extends TimedRobot {
       //m_autonomousCommand = Constants.driveTrain.followTrajectoryCommand(traj, true);
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
+    if (m_autonomousCommand != null)
       m_autonomousCommand.schedule();
   }
 

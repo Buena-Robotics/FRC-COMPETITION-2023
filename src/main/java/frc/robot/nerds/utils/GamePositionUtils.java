@@ -150,4 +150,7 @@ public class GamePositionUtils {
     public double getRobotPitch() {
         return gyroscope.getPitch();
     }
+    public double encoderToMeters(double encoder) {
+        return encoder * Constants.ENCODER_TO_METER;
+    }
 }
