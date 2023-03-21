@@ -36,6 +36,7 @@ import frc.robot.commands.TurnAngleCommand;
 import frc.robot.nerds.utils.CameraUtils;
 import frc.robot.nerds.utils.ControllerUtils;
 import frc.robot.nerds.utils.GamePositionUtils;
+import frc.robot.nerds.utils.GamePositionUtils.CommunityPosition;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -66,7 +67,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Ramp Rate", 0.5);
 		SmartDashboard.putNumber("Lower Score Destination", -35);
 		SmartDashboard.putNumber("Shelf Height Destination", -19);
-		SmartDashboard.putNumber("High Score Height", -70);
+		SmartDashboard.putNumber("High Score Height", -55);
 
 		SmartDashboard.putNumber("WaitDelay", 0.3);
 		SmartDashboard.putNumber("DriveDistance", -0.5);
@@ -143,17 +144,89 @@ public class Robot extends TimedRobot {
     Constants.driveTrain.leftEncoder.setPosition(0);
     Constants.driveTrain.rightEncoder.setPosition(0);
 
+    CommunityPosition communityPosition = GamePositionUtils.getInstance().getCommunityPos();
+
     int turnAngle = (Math.round(Constants.driveTrain.gyroscope.getYaw()) + 180 + (int)SmartDashboard.getNumber("DegreesToTurn", -1)) % 360;
 
-    m_autonomousCommand = new SequentialCommandGroup(
-      new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
-      new OpenClawCommand(Constants.armSubsystem),
-      new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
-      new WaitCommand(SmartDashboard.getNumber("WaitDelay", 0.3)),
-      new DriveDistanceCommand(Constants.driveTrain, SmartDashboard.getNumber("DriveDistance", -1)),
-      new WaitCommand(1),
-      new TurnAngleCommand(Constants.driveTrain, turnAngle)
-    );
+    switch(communityPosition){
+      case RED_RIGHT:
+        m_autonomousCommand = new SequentialCommandGroup(
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
+          new OpenClawCommand(Constants.armSubsystem),
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
+          new WaitCommand(SmartDashboard.getNumber("WaitDelay", 0.3)),
+          new DriveDistanceCommand(Constants.driveTrain, SmartDashboard.getNumber("DriveDistance", -1)),
+          new WaitCommand(1),
+          new TurnAngleCommand(Constants.driveTrain, turnAngle)
+        );
+        break;
+      case RED_CENTER:
+        m_autonomousCommand = new SequentialCommandGroup(
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
+          new OpenClawCommand(Constants.armSubsystem),
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
+          new WaitCommand(SmartDashboard.getNumber("WaitDelay", 0.3)),
+          new DriveDistanceCommand(Constants.driveTrain, SmartDashboard.getNumber("DriveDistance", -1)),
+          new WaitCommand(1),
+          new TurnAngleCommand(Constants.driveTrain, turnAngle)
+        );
+        break;
+      case RED_LEFT:
+        m_autonomousCommand = new SequentialCommandGroup(
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
+          new OpenClawCommand(Constants.armSubsystem),
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
+          new WaitCommand(SmartDashboard.getNumber("WaitDelay", 0.3)),
+          new DriveDistanceCommand(Constants.driveTrain, SmartDashboard.getNumber("DriveDistance", -1)),
+          new WaitCommand(1),
+          new TurnAngleCommand(Constants.driveTrain, turnAngle)
+        );
+        break;
+      case BLUE_RIGHT:
+        m_autonomousCommand = new SequentialCommandGroup(
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
+          new OpenClawCommand(Constants.armSubsystem),
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
+          new WaitCommand(SmartDashboard.getNumber("WaitDelay", 0.3)),
+          new DriveDistanceCommand(Constants.driveTrain, SmartDashboard.getNumber("DriveDistance", -1)),
+          new WaitCommand(1),
+          new TurnAngleCommand(Constants.driveTrain, turnAngle)
+        );
+        break;
+      case BLUE_CENTER:
+        m_autonomousCommand = new SequentialCommandGroup(
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
+          new OpenClawCommand(Constants.armSubsystem),
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
+          new WaitCommand(SmartDashboard.getNumber("WaitDelay", 0.3)),
+          new DriveDistanceCommand(Constants.driveTrain, SmartDashboard.getNumber("DriveDistance", -1)),
+          new WaitCommand(1),
+          new TurnAngleCommand(Constants.driveTrain, turnAngle)
+        );
+        break;
+      case BLUE_LEFT:
+        m_autonomousCommand = new SequentialCommandGroup(
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
+          new OpenClawCommand(Constants.armSubsystem),
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
+          new WaitCommand(SmartDashboard.getNumber("WaitDelay", 0.3)),
+          new DriveDistanceCommand(Constants.driveTrain, SmartDashboard.getNumber("DriveDistance", -1)),
+          new WaitCommand(1),
+          new TurnAngleCommand(Constants.driveTrain, turnAngle)
+        );
+        break;
+      default:
+        m_autonomousCommand = new SequentialCommandGroup(
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.UP), 
+          new OpenClawCommand(Constants.armSubsystem),
+          new MoveArmToPosition(Constants.armSubsystem, ControllerUtils.DPadDirection.RIGHT),
+          new WaitCommand(SmartDashboard.getNumber("WaitDelay", 0.3)),
+          new DriveDistanceCommand(Constants.driveTrain, SmartDashboard.getNumber("DriveDistance", -1)),
+          new WaitCommand(1),
+          new TurnAngleCommand(Constants.driveTrain, turnAngle)
+        );
+        break;
+    }
 
     //TrajectoryConfig config = new TrajectoryConfig(Units.feetToMeters(2), Units.feetToMeters(2));
     //config.setKinematics(Constants.driveTrain.kinematics);

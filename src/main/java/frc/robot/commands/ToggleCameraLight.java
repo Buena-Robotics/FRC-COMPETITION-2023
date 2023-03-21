@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class ToggleCameraLight extends CommandBase{
@@ -13,18 +15,15 @@ public class ToggleCameraLight extends CommandBase{
     }
 
     @Override
-    public void initialize() {}
-
-    @Override
-    public void execute() {
-
+    public void initialize() {
+        if(Constants.circleLight.get() == Value.kReverse)
+            Constants.circleLight.set(Value.kForward);
+        else
+            Constants.circleLight.set(Value.kReverse);
     }
 
     @Override
-    public void end(boolean interrupted) {}
-
-    @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

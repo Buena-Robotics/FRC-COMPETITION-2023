@@ -54,6 +54,7 @@ public final class Constants {
   public static ArmSubsystem armSubsystem = new ArmSubsystem();
 
   public final static Relay light = new Relay(0);
+  public final static Relay circleLight = new Relay(1);
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

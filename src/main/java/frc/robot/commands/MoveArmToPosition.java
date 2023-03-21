@@ -43,7 +43,7 @@ public class MoveArmToPosition extends CommandBase {
                 break;
                 //Move to lower score
             case UP:
-                destination = (int)SmartDashboard.getNumber("High Score Height", -70);
+                destination = (int)SmartDashboard.getNumber("High Score Height", -55);
                 armSubsystem.rotateArmToPosition(destination);
                 break;
                 //Move to high score

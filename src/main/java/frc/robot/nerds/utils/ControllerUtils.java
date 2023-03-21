@@ -11,6 +11,7 @@ import frc.robot.commands.MoveArmCommand;
 import frc.robot.commands.MoveArmToPosition;
 import frc.robot.commands.SwapLight;
 import frc.robot.commands.TestCommand;
+import frc.robot.commands.ToggleCameraLight;
 import frc.robot.commands.ToggleGrabCommand;
 import frc.robot.commands.TurnAngleCommand;
 
@@ -80,6 +81,8 @@ public class ControllerUtils {
 
         commandController.back().onTrue(new SwapLight(Constants.driveTrain, SwapLight.Color.Purple));
         commandController.start().onTrue(new SwapLight(Constants.driveTrain, SwapLight.Color.Yellow));
+
+        commandController.x().onTrue(new ToggleCameraLight(Constants.driveTrain));
         
         dpadUpButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, DPadDirection.UP));
         dpadLeftButton.onTrue(new MoveArmToPosition(Constants.armSubsystem, DPadDirection.LEFT));
