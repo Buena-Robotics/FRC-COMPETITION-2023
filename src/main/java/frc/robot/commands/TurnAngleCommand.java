@@ -24,7 +24,7 @@ public class TurnAngleCommand extends CommandBase{
     }
     @Override
     public void execute() {
-        final double kP = 0.1;
+        final double kP = 0.2;
         final double min = 0.1;
         // if(gyroClampedAngle() + 1 == degree || gyroClampedAngle() - 1 == degree){
         //     break;
@@ -37,7 +37,8 @@ public class TurnAngleCommand extends CommandBase{
 
         double outputSpeed = normalizedDistance < min && normalizedDistance > 0 ? min : normalizedDistance;
         double newOutputSpeed = (outputSpeed > -min && outputSpeed < 0) ? -min : outputSpeed;
-        drivetrain.m_drive.arcadeDrive(newOutputSpeed, 0.0);
+        drivetrain.leftMotors.set(newOutputSpeed);
+        drivetrain.rightMotors.set(newOutputSpeed);
     }
 
     @Override
